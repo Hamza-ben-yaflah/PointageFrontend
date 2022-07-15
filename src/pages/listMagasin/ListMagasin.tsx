@@ -9,7 +9,13 @@ const ListMagasin = () => {
       <Sidebar />
       <div className="listContainer">
         <Navbar />
-        <Datatable Columns={MagasinColumns} Rows={MagasinRows} type="Magasin" />
+        <Datatable
+          columns={MagasinColumns}
+          rows={MagasinRows}
+          type="Magasin"
+          title="Magasin List"
+          link={{ title: "Add Magasin", path: "/users/new" }}
+        />
       </div>
     </div>
   );

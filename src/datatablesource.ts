@@ -1,6 +1,13 @@
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import "./style/dark.scss";
-export const userColumns = [
+
+export interface userC {
+  field: string;
+  headerName: string;
+  width: number;
+}
+
+export const userColumns: userC[] = [
   {
     field: "id",
     headerName: "ID",
@@ -10,14 +17,14 @@ export const userColumns = [
     field: "employee",
     headerName: "Employee",
     width: 230,
-    renderCell: (params) => {
-      return (
-        <div className="cellWithImg">
-          <img className="cellImg" src={params.row.img} alt="avatar" />
-          {params.row.username}
-        </div>
-      );
-    },
+    // renderCell: (params) => {
+    //   return (
+    //     <div className="cellWithImg">
+    //       <img className="cellImg" src={params.row.img} alt="avatar" />
+    //       {params.row.username}
+    //     </div>
+    //   );
+    // },
   },
   {
     field: "shop",
@@ -37,18 +44,27 @@ export const userColumns = [
     headerName: "Notification",
 
     width: 160,
-    renderCell: () => {
-      return (
-        <div>
-          <NotificationsNoneOutlinedIcon />
-        </div>
-      );
-    },
+    // renderCell: () => {
+    //   return (
+    //     <div>
+    //       <NotificationsNoneOutlinedIcon />
+    //     </div>
+    //   );
+    // },
   },
 ];
 
+export interface userR {
+  id: number;
+  username: string;
+  img: string;
+  status: string;
+  shop: string;
+  phonenumber: number;
+}
+
 //temporary data
-export const userRows = [
+export const userRows: userR[] = [
   {
     id: 1,
     username: "Snow",
@@ -102,14 +118,14 @@ export const MagasinColumns = [
     headerName: "Name",
 
     width: 230,
-    renderCell: (params) => {
-      return (
-        <div className="cellWithImg">
-          <img className="cellImg" src={params.row.img} alt="avatar" />
-          {params.row.name}
-        </div>
-      );
-    },
+    // renderCell: (params) => {
+    //   return (
+    //     <div className="cellWithImg">
+    //       <img className="cellImg" src={params.row.img} alt="avatar" />
+    //       {params.row.name}
+    //     </div>
+    //   );
+    // },
   },
   {
     field: "adresse",
@@ -129,7 +145,18 @@ export const MagasinColumns = [
   },
 ];
 
-export const MagasinRows = [
+export interface MagasinR {
+  id: number;
+  username: string;
+  name: string;
+  status: string;
+  adresse: string;
+  phonenumber: number;
+  img: string;
+  nombre: number;
+}
+
+export const MagasinRows: MagasinR[] = [
   {
     id: 1,
     username: "Snow",
@@ -158,6 +185,7 @@ export const MagasinRows = [
     status: "pending",
     phonenumber: 20212232,
     adresse: "6 rue dahlia cite zouhour",
+    nombre: 0,
   },
   {
     id: 4,
@@ -181,7 +209,15 @@ export const MagasinRows = [
   },
 ];
 
-export const DemandeRows = [
+export interface Demande {
+  id: number;
+  date: string;
+  name: string;
+  type: string;
+  status: string;
+}
+
+export const DemandeRows: Demande[] = [
   {
     id: 1,
     date: "24/11/2002",

@@ -17,7 +17,12 @@ const data = [
   { name: "June", Total: 1700 },
 ];
 
-const Chart = ({ aspect, title }) => {
+type ChartProps = {
+  title: string;
+  aspect: any;
+};
+
+const Chart = ({ aspect, title }: ChartProps) => {
   return (
     <div className="chart">
       <div className="title">{title}</div>

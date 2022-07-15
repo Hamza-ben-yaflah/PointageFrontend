@@ -2,12 +2,24 @@ import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { userC, userR, Demande, MagasinR } from "../../datatablesource";
 
-const Datatable = ({ Columns, Rows, type }) => {
-  const [data, setData] = useState(Rows);
+type DatatabelProps = {
+  columns: userC[];
+  rows: any;
+  type: string;
+  title: string;
+  link: {
+    path: string;
+    title: string;
+  };
+};
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+const Datatable = ({ columns, rows, type, link, title }: DatatabelProps) => {
+  const [data, setData] = useState(rows);
+
+  const handleDelete = (id: number) => {
+    setData(data.filter((item: any) => item.id !== id));
   };
 
   const actionColumn = [
@@ -15,7 +27,7 @@ const Datatable = ({ Columns, Rows, type }) => {
       field: "action",
       headerName: "Action",
       width: 200,
-      renderCell: (params) => {
+      renderCell: (params: any) => {
         return (
           <div className="cellAction">
             <Link to="/users/test" style={{ textDecoration: "none" }}>
@@ -34,85 +46,31 @@ const Datatable = ({ Columns, Rows, type }) => {
   ];
   return (
     <>
-      {type === "user" ? (
-        <div className="datatable">
-          <div className="datatableTitle">
-            Employee list
-            <Link to="/users/new" className="link">
-              Add Employee
-            </Link>
-          </div>
-          <DataGrid
-            sx={{
-              "& .MuiDataGrid-virtualScrollerRenderZone": {
-                "& .MuiDataGrid-row": {
-                  "&:nth-child(2n)": {
-                    backgroundColor: "rgba(235, 235, 235, .7)",
-                  },
+      <div className="datatable">
+        <div className="datatableTitle">
+          {title}
+          <Link to={link.path} className="link">
+            {link.title}
+          </Link>
+        </div>
+        <DataGrid
+          sx={{
+            "& .MuiDataGrid-virtualScrollerRenderZone": {
+              "& .MuiDataGrid-row": {
+                "&:nth-child(2n)": {
+                  backgroundColor: "rgba(235, 235, 235, .7)",
                 },
               },
-            }}
-            className="datagrid"
-            rows={data}
-            columns={Columns.concat(actionColumn)}
-            pageSize={9}
-            rowsPerPageOptions={[9]}
-            checkboxSelection
-          />
-        </div>
-      ) : type === "Magasin" ? (
-        <div className="datatable">
-          <div className="datatableTitle">
-            Magasin list
-            <Link to="/users/new" className="link">
-              Add Magasin
-            </Link>
-          </div>
-          <DataGrid
-            sx={{
-              "& .MuiDataGrid-virtualScrollerRenderZone": {
-                "& .MuiDataGrid-row": {
-                  "&:nth-child(2n)": {
-                    backgroundColor: "rgba(235, 235, 235, .7)",
-                  },
-                },
-              },
-            }}
-            className="datagrid"
-            rows={data}
-            columns={Columns.concat(actionColumn)}
-            pageSize={9}
-            rowsPerPageOptions={[9]}
-            checkboxSelection
-          />
-        </div>
-      ) : (
-        <div className="datatable">
-          <div className="datatableTitle">
-            Demande list
-            <Link to="/users/new" className="link">
-              Add Demande
-            </Link>
-          </div>
-          <DataGrid
-            sx={{
-              "& .MuiDataGrid-virtualScrollerRenderZone": {
-                "& .MuiDataGrid-row": {
-                  "&:nth-child(2n)": {
-                    backgroundColor: "rgba(235, 235, 235, .7)",
-                  },
-                },
-              },
-            }}
-            className="datagrid"
-            rows={data}
-            columns={Columns.concat(actionColumn)}
-            pageSize={9}
-            rowsPerPageOptions={[9]}
-            checkboxSelection
-          />
-        </div>
-      )}
+            },
+          }}
+          className="datagrid"
+          rows={data}
+          columns={columns.concat(actionColumn)}
+          pageSize={9}
+          rowsPerPageOptions={[9]}
+          checkboxSelection
+        />
+      </div>
     </>
   );
 };

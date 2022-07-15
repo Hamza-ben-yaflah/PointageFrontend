@@ -8,7 +8,13 @@ const ListDemande = () => {
       <Sidebar />
       <div className="listContainer">
         <Navbar />
-        <Datatable Columns={DemandeColumn} Rows={DemandeRows} type="demande" />
+        <Datatable
+          columns={DemandeColumn}
+          rows={DemandeRows}
+          type="demande"
+          title="Demande list"
+          link={{ title: "Add Demande", path: "/users/new" }}
+        />
       </div>
     </div>
   );
