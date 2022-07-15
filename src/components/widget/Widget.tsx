@@ -4,6 +4,7 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import { ReactElement } from "react";
 
 type widgetProps = {
   type: string;
@@ -12,7 +13,7 @@ interface data {
   title: string;
   isMoney: boolean;
   link: string;
-  icon: any;
+  icon: ReactElement;
 }
 const Widget = ({ type }: widgetProps) => {
   let data: data | undefined;

@@ -1,10 +1,12 @@
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import { ReactElement } from "react";
 import "./style/dark.scss";
 
 export interface userC {
   field: string;
   headerName: string;
   width: number;
+  renderCell?: (params?: any) => ReactElement;
 }
 
 export const userColumns: userC[] = [
@@ -17,14 +19,14 @@ export const userColumns: userC[] = [
     field: "employee",
     headerName: "Employee",
     width: 230,
-    // renderCell: (params) => {
-    //   return (
-    //     <div className="cellWithImg">
-    //       <img className="cellImg" src={params.row.img} alt="avatar" />
-    //       {params.row.username}
-    //     </div>
-    //   );
-    // },
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img className="cellImg" src={params.row.img} alt="avatar" />
+          {params.row.username}
+        </div>
+      );
+    },
   },
   {
     field: "shop",
@@ -44,13 +46,13 @@ export const userColumns: userC[] = [
     headerName: "Notification",
 
     width: 160,
-    // renderCell: () => {
-    //   return (
-    //     <div>
-    //       <NotificationsNoneOutlinedIcon />
-    //     </div>
-    //   );
-    // },
+    renderCell: () => {
+      return (
+        <div>
+          <NotificationsNoneOutlinedIcon />
+        </div>
+      );
+    },
   },
 ];
 

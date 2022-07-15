@@ -6,7 +6,7 @@ import { userC, userR, Demande, MagasinR } from "../../datatablesource";
 
 type DatatabelProps = {
   columns: userC[];
-  rows: any;
+  rows: userR[] | Demande[] | MagasinR[];
   type: string;
   title: string;
   link: {
@@ -16,10 +16,10 @@ type DatatabelProps = {
 };
 
 const Datatable = ({ columns, rows, type, link, title }: DatatabelProps) => {
-  const [data, setData] = useState(rows);
+  const [data, setData] = useState(rows || []);
 
   const handleDelete = (id: number) => {
-    setData(data.filter((item: any) => item.id !== id));
+    setData(data.filter((item) => item.id !== id));
   };
 
   const actionColumn = [

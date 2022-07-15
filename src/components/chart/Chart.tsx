@@ -19,7 +19,7 @@ const data = [
 
 type ChartProps = {
   title: string;
-  aspect: any;
+  aspect: number;
 };
 
 const Chart = ({ aspect, title }: ChartProps) => {
