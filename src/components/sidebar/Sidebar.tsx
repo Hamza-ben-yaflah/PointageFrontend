@@ -60,10 +60,12 @@ const Sidebar = () => {
             <InsertChartIcon className="icon" />
             <span>Stats</span>
           </li> */}
-          <li>
-            <NotificationsNoneIcon className="icon" />
-            <span>Demandes</span>
-          </li>
+          <Link to="/demande" style={{ textDecoration: "none" }}>
+            <li>
+              <NotificationsNoneIcon className="icon" />
+              <span>Demandes</span>
+            </li>
+          </Link>
           {/* <p className="title">SERVICE</p>
           <li>
             <SettingsSystemDaydreamOutlinedIcon className="icon" />
@@ -78,10 +80,12 @@ const Sidebar = () => {
             <span>Settings</span>
           </li> */}
           <p className="title">USER</p>
-          <li>
-            <AccountCircleOutlinedIcon className="icon" />
-            <span>Profile</span>
-          </li>
+          <Link to="/admins" style={{ textDecoration: "none" }}>
+            <li>
+              <AccountCircleOutlinedIcon className="icon" />
+              <span>Users</span>
+            </li>
+          </Link>
           <li>
             <ExitToAppIcon className="icon" />
             <span>Logout</span>

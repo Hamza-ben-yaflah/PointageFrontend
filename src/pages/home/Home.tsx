@@ -4,9 +4,11 @@ import "./home.scss";
 import Widget from "../../components/widget/Widget";
 import Featured from "../../components/featured/Featured";
 import Chart from "../../components/chart/Chart";
-import Table from "../../components/table/Table";
+import ListDashboard from "../../components/listDashboard/ListDashboard";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
+  const { t } = useTranslation(["home"]);
   return (
     <div className="home">
       <Sidebar />
@@ -23,8 +25,8 @@ const Home = () => {
           <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
         </div> */}
         <div className="listContainer">
-          <div className="listTitle">Pointage</div>
-          <Table />
+          <div className="listTitle">{t("pointage")}</div>
+          <ListDashboard />
         </div>
       </div>
     </div>

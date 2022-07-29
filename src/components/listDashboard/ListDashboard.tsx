@@ -8,10 +8,11 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import { styled } from "@mui/material/styles";
-
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: "#6439ff",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -29,7 +30,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const List = () => {
+const ListDashboard = () => {
+  const { t } = useTranslation(["listDashboard"]);
   const rows = [
     {
       id: 1143155,
@@ -45,16 +47,6 @@ const List = () => {
       Sortie: ["--:--", "--:--", "--:--", "--:--"],
       nombre: 4,
       status: "Ouvert",
-      Notification: () => {
-        return (
-          <div className="items">
-            <div className="item">
-              <NotificationsNoneOutlinedIcon className="icon" />
-              <div className="counter">1</div>
-            </div>
-          </div>
-        );
-      },
     },
     {
       id: 2235235,
@@ -90,16 +82,6 @@ const List = () => {
       Sortie: ["--:--", "--:--", "--:--", "--:--"],
       nombre: 4,
       status: "Ouvert",
-      Notification: () => {
-        return (
-          <div className="items">
-            <div className="item">
-              <NotificationsNoneOutlinedIcon className="icon" />
-              <div className="counter">3</div>
-            </div>
-          </div>
-        );
-      },
     },
     {
       id: 2357741,
@@ -110,16 +92,6 @@ const List = () => {
       Sortie: ["18:30h", "18:30h"],
       nombre: 2,
       status: "Ouvert",
-      Notification: () => {
-        return (
-          <div className="items">
-            <div className="item">
-              <NotificationsNoneOutlinedIcon className="icon" />
-              <div className="counter">2</div>
-            </div>
-          </div>
-        );
-      },
     },
     {
       id: 2342355,
@@ -130,16 +102,6 @@ const List = () => {
       Sortie: ["18:30h"],
       nombre: 1,
       status: "Ouvert",
-      Notification: () => {
-        return (
-          <div className="items">
-            <div className="item">
-              <NotificationsNoneOutlinedIcon className="icon" />
-              <div className="counter">1</div>
-            </div>
-          </div>
-        );
-      },
     },
   ];
   return (
@@ -148,13 +110,24 @@ const List = () => {
         <TableHead>
           <TableRow>
             {/* <TableCell className="tableCell">Tracking ID</TableCell> */}
-            <StyledTableCell className="tableCell">Magasin </StyledTableCell>
-            <StyledTableCell className="tableCell">Employé</StyledTableCell>
-            <StyledTableCell className="tableCell">Entrer</StyledTableCell>
-            <StyledTableCell className="tableCell">Sortie</StyledTableCell>
-            <StyledTableCell className="tableCell">Nombre</StyledTableCell>
-            <StyledTableCell className="tableCell">Status</StyledTableCell>
-            <StyledTableCell className="tableCell">Demande</StyledTableCell>
+            <StyledTableCell className="tableCell">
+              {t("shop")}{" "}
+            </StyledTableCell>
+            <StyledTableCell className="tableCell">
+              {t("employee")}
+            </StyledTableCell>
+            <StyledTableCell className="tableCell">
+              {t("enter")}
+            </StyledTableCell>
+            <StyledTableCell className="tableCell">
+              {t("exist")}
+            </StyledTableCell>
+            <StyledTableCell className="tableCell">
+              {t("number")}
+            </StyledTableCell>
+            <StyledTableCell className="tableCell">
+              {t("status")}
+            </StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -164,13 +137,26 @@ const List = () => {
               <TableCell className="tableCell">
                 <div className="cellWrapper">
                   <img src={row.img} alt="" className="image" />
-                  {row.product}
+                  <Link to="/products/test" style={{ textDecoration: "none" }}>
+                    {row.product}
+                  </Link>
                 </div>
               </TableCell>
               <TableCell className="tableCell">
                 {row.customer.map((el) => (
                   <TableBody>
-                    <TableRow>{el}</TableRow>
+                    <div className="cellWrapper">
+                      <img src={row.img} alt="" className="image" />
+
+                      <TableRow>
+                        <Link
+                          to="/users/test"
+                          style={{ textDecoration: "none" }}
+                        >
+                          {el}
+                        </Link>
+                      </TableRow>
+                    </div>
                   </TableBody>
                 ))}{" "}
               </TableCell>
@@ -178,7 +164,10 @@ const List = () => {
                 {" "}
                 {row.Entrer.map((el) => (
                   <TableBody>
-                    <TableRow>{el}</TableRow>
+                    <div className="cellWrapper">
+                      <div className="image"> </div>
+                      <TableRow>{el}</TableRow>
+                    </div>
                   </TableBody>
                 ))}{" "}
               </TableCell>
@@ -186,7 +175,10 @@ const List = () => {
                 {" "}
                 {row.Sortie.map((el) => (
                   <TableBody>
-                    <TableRow>{el}</TableRow>
+                    <div className="cellWrapper">
+                      <div className="image"> </div>
+                      <TableRow>{el}</TableRow>
+                    </div>
                   </TableBody>
                 ))}{" "}
               </TableCell>
@@ -194,7 +186,6 @@ const List = () => {
               <TableCell className="tableCell">
                 <span className={`status ${row.status}`}>{row.status}</span>
               </TableCell>
-              <TableCell className="tableCell">{row.Notification()}</TableCell>
             </StyledTableRow>
           ))}
         </TableBody>
@@ -203,4 +194,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default ListDashboard;

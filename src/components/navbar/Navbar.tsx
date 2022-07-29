@@ -7,11 +7,22 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
-
+import { useContext, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 const Navbar = () => {
   // const { dispatch } = useContext(DarkModeContext);
+  const { i18n } = useTranslation();
 
+  useEffect(() => {
+    if (localStorage.getItem("i18nextLng") || "".length > 2) {
+      i18next.changeLanguage("en");
+    }
+  }, []);
+
+  const handleLanguageChange = (e: any) => {
+    i18n.changeLanguage(e.target.value);
+  };
   return (
     <div className="navbar">
       <div className="wrapper">
@@ -20,10 +31,14 @@ const Navbar = () => {
           <SearchOutlinedIcon />
         </div>
         <div className="items">
-          <div className="item">
-            <LanguageOutlinedIcon className="icon" />
-            English
-          </div>
+          <select
+            className="item"
+            onChange={handleLanguageChange}
+            value={localStorage.getItem("i18nextLng") || undefined}
+          >
+            <option value="en">English</option>
+            <option value="fr">Francais</option>
+          </select>
           <div className="item">
             <DarkModeOutlinedIcon
               className="icon"

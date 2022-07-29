@@ -1,7 +1,8 @@
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import { ReactElement } from "react";
+import { Link } from "react-router-dom";
 import "./style/dark.scss";
-
+import { useTranslation } from "react-i18next";
 export interface userC {
   field: string;
   headerName: string;
@@ -23,7 +24,9 @@ export const userColumns: userC[] = [
       return (
         <div className="cellWithImg">
           <img className="cellImg" src={params.row.img} alt="avatar" />
-          {params.row.username}
+          <Link to="/users/test" style={{ textDecoration: "none" }}>
+            {params.row.username}
+          </Link>
         </div>
       );
     },
@@ -120,14 +123,15 @@ export const MagasinColumns = [
     headerName: "Name",
 
     width: 230,
-    // renderCell: (params) => {
-    //   return (
-    //     <div className="cellWithImg">
-    //       <img className="cellImg" src={params.row.img} alt="avatar" />
-    //       {params.row.name}
-    //     </div>
-    //   );
-    // },
+    renderCell: (params: any) => {
+      return (
+        <div className="cellWithImg">
+          <Link to="/products/test" style={{ textDecoration: "none" }}>
+            {params.row.name}
+          </Link>
+        </div>
+      );
+    },
   },
   {
     field: "adresse",
@@ -217,6 +221,7 @@ export interface Demande {
   name: string;
   type: string;
   status: string;
+  dateT: string;
 }
 
 export const DemandeRows: Demande[] = [
@@ -226,6 +231,7 @@ export const DemandeRows: Demande[] = [
     name: "fathi",
     type: "sortie",
     status: "Accepted",
+    dateT: "24/11/2002",
   },
   {
     id: 2,
@@ -233,6 +239,7 @@ export const DemandeRows: Demande[] = [
     name: "fathi",
     type: "congé de maladie",
     status: "En cours",
+    dateT: "24/11/2002",
   },
   {
     id: 3,
@@ -240,6 +247,7 @@ export const DemandeRows: Demande[] = [
     name: "fathi",
     type: "congé",
     status: "rejected",
+    dateT: "24/11/2002",
   },
   {
     id: 4,
@@ -247,6 +255,7 @@ export const DemandeRows: Demande[] = [
     name: "fathi",
     type: "congé",
     status: "En cours",
+    dateT: "24/11/2002",
   },
 ];
 
@@ -269,6 +278,11 @@ export const DemandeColumn = [
   {
     field: "status",
     headerName: "Etat",
+    width: 230,
+  },
+  {
+    field: "dateT",
+    headerName: "Date de traitement",
     width: 230,
   },
 ];

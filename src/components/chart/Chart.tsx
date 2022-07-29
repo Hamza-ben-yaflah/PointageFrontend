@@ -7,6 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { DataGrid } from "@mui/x-data-grid";
 
 const data = [
   { name: "January", Total: 1200 },
@@ -19,38 +20,73 @@ const data = [
 
 type ChartProps = {
   title: string;
-  aspect: number;
 };
 
-const Chart = ({ aspect, title }: ChartProps) => {
+const Chart = ({ title }: ChartProps) => {
+  const userColumns = [
+    // {
+    //   field: "id",
+    //   headerName: "ID",
+    //   height: 50,
+    //   width: 100,
+    // },
+    {
+      field: "date",
+      headerName: "Date",
+
+      height: 50,
+      width: 200,
+    },
+
+    {
+      field: "type",
+      headerName: "Type",
+      height: 50,
+      width: 230,
+    },
+
+    {
+      field: "status",
+      headerName: "Status",
+      height: 50,
+      width: 200,
+    },
+  ];
+
+  const userRows = [
+    {
+      id: 1,
+      date: "25/11/2014",
+      type: "sortie",
+      status: "En cours",
+    },
+    {
+      id: 2,
+      date: "25/11/2019",
+      type: "avance",
+      status: "Accepted",
+    },
+  ];
+
   return (
     <div className="chart">
       <div className="title">{title}</div>
-      <ResponsiveContainer width="100%" aspect={aspect}>
-        <AreaChart
-          width={730}
-          height={250}
-          data={data}
-          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-        >
-          <defs>
-            <linearGradient id="total" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <XAxis dataKey="name" stroke="gray" />
-          <CartesianGrid strokeDasharray="3 3" className="chartGrid" />
-          <Tooltip />
-          <Area
-            type="monotone"
-            dataKey="Total"
-            stroke="#8884d8"
-            fillOpacity={1}
-            fill="url(#total)"
-          />
-        </AreaChart>
-      </ResponsiveContainer>
+      <DataGrid
+        sx={{
+          "& .MuiDataGrid-virtualScrollerRenderZone": {
+            "& .MuiDataGrid-row": {
+              "&:nth-child(2n)": {
+                backgroundColor: "rgba(235, 235, 235, .7)",
+              },
+            },
+          },
+        }}
+        rows={userRows}
+        columns={userColumns}
+        pageSize={9}
+        rowsPerPageOptions={[9]}
+        hideFooterPagination
+      />
     </div>
   );
 };

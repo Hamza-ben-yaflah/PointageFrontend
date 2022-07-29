@@ -5,7 +5,7 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import { ReactElement } from "react";
-
+import { useTranslation } from "react-i18next";
 type widgetProps = {
   type: string;
 };
@@ -16,16 +16,17 @@ interface data {
   icon: ReactElement;
 }
 const Widget = ({ type }: widgetProps) => {
+  const { t } = useTranslation(["home"]);
   let data: data | undefined;
 
   //temporary
-  const amount = 100;
-  const diff = 20;
+  const amount = 5;
+  const diff = 50;
 
   switch (type) {
     case "user":
       data = {
-        title: "EMPLOYES ",
+        title: t("pointage"),
         isMoney: false,
         link: "See all employes",
         icon: (
@@ -93,7 +94,7 @@ const Widget = ({ type }: widgetProps) => {
       <div className="left">
         <span className="title">{data?.title}</span>
         <span className="counter">
-          {data?.isMoney && "$"} {amount}
+          {data?.isMoney && "$"} {`${amount}/10`}
         </span>
         <span className="link">{data?.link}</span>
       </div>

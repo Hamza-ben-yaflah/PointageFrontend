@@ -1,12 +1,10 @@
-import "./single.scss";
-import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
+import React from "react";
 import Chart from "../../components/chart/Chart";
-import List from "../list/List";
-import Datatable from "../../components/datatable/Datatable";
-import Tracking from "../../components/tracking/Tracking";
-
-const Single = () => {
+import Navbar from "../../components/navbar/Navbar";
+import Sidebar from "../../components/sidebar/Sidebar";
+import TrackingShop from "../../components/trackingShop/TrackingShop";
+import "./singleShop.scss";
+const SingleShop = () => {
   return (
     <div className="single">
       <Sidebar />
@@ -17,9 +15,9 @@ const Single = () => {
             <div className="editButton">Edit</div>
             <h1 className="title">Information</h1>
             <div className="item">
-              <img src="/images/imag.jpg" alt="" className="itemImg" />
+              <img src="/images/shop.jpg" alt="" className="itemImg" />
               <div className="details">
-                <h1 className="itemTitle">Fathi</h1>
+                <h1 className="itemTitle">Bardo</h1>
                 <div className="detailItem">
                   <span className="itemKey">Email:</span>
                   <span className="itemValue">janedoe@gmail.com</span>
@@ -36,22 +34,22 @@ const Single = () => {
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Country:</span>
-                  <span className="itemValue">Tunisia</span>
+                  <span className="itemValue">Tunis</span>
                 </div>
               </div>
             </div>
           </div>
           <div className="right">
-            <Chart title="User Spending ( Last 6 Months)" />
+            <Chart title="User Spending ( Last 7 days)" />
           </div>
         </div>
         <div className="bottom">
           <h1 className="title">Last Transactions</h1>
-          <Tracking />
+          <TrackingShop />
         </div>
       </div>
     </div>
   );
 };
 
-export default Single;
+export default SingleShop;

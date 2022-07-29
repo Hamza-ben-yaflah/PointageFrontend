@@ -1,4 +1,4 @@
-import "./list.scss";
+import React from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Datatable from "../../components/datatable/Datatable";
@@ -15,7 +15,7 @@ import Button from "@mui/material/Button";
 import { ChangeEvent, useState } from "react";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 
-const List = () => {
+const ListUsers = () => {
   const [age, setAge] = useState("");
   const [open, setOpen] = useState(false);
   const [file, setFile] = useState<any>();
@@ -46,8 +46,8 @@ const List = () => {
           columns={userColumns}
           rows={userRows}
           type="user"
-          title="Employee list"
-          link={{ title: "Add Employee", path: "/users/new" }}
+          title="Users list"
+          link={{ title: "Add User", path: "/users/new" }}
           handleOpen={handleOpen}
         />
       </div>
@@ -65,7 +65,7 @@ const List = () => {
               component="h2"
               sx={{ mb: 2 }}
             >
-              New Employee
+              New User
             </Typography>
             <Box
               sx={{
@@ -156,4 +156,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default ListUsers;
