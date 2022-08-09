@@ -86,7 +86,7 @@ const ListDemande = () => {
       renderCell: (params: any) => {
         return (
           <div className="cellAction">
-            <div>Rejected</div>
+            <div>{dataRow.find((row) => row.id === params.row.id)?.status}</div>
             <div className="viewButton" style={{ color: "green" }}>
               ✓
             </div>

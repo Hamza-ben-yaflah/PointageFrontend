@@ -17,7 +17,15 @@ i18n
     debug: false,
     // can have multiple namespaces, in case you want to divide a huge
     // translation into smaller pieces and load them on demand
-    ns: ["home", "listDashboard"],
+    ns: [
+      "home",
+      "listDashboard",
+      "listemployee",
+      "widget",
+      "sidebar",
+      "listMagasin",
+      "listDemande",
+    ],
 
     interpolation: {
       espaceValue: false,
