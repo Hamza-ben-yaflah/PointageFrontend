@@ -1,0 +1,13 @@
+{
+  "admin": "Administrateur",
+  "main": "PRINCIPAL",
+  "list": "LISTE",
+  "dashboard": "Tableau de bord ",
+  "employee": "Employé",
+  "shop": "Magsin",
+  "demandes": "Demande",
+  "user": "utilisateur",
+  "users": "utilisateurs",
+  "logout": "Se déconnecter",
+  "client": "Client"
+}

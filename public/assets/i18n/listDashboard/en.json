@@ -4,5 +4,7 @@
   "enter": "Enter",
   "exist": "Exist",
   "number": "Number",
-  "status": "Status"
+  "status": "Status",
+  "open": "Open",
+  "close": "Close"
 }

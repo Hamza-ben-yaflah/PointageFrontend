@@ -1,0 +1,11 @@
+{
+  "date": "Date",
+  "name": "Nom",
+  "type": "Type",
+  "status": "Etat",
+  "dateT": "Date de traitement",
+  "demandeslist": "Liste des demandes",
+  "AddDemand": "Ajouter Demande",
+  "newDemande": "Nouvelle Demande",
+  "Add": "Ajouter"
+}

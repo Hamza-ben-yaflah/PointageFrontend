@@ -1,0 +1,11 @@
+{
+  "id": "Id",
+  "employee": "Employé",
+  "shop": "Magasin",
+  "phonenumber": "Numéro téléphone",
+  "notification": "Notification",
+  "employeeslist": "Liste des employés",
+  "AddEmployee": "Ajouter Employee",
+  "newEmployee": "Nouveau employé",
+  "Add": "Add"
+}

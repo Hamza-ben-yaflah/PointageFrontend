@@ -1,0 +1,11 @@
+{
+  "date": "Date",
+  "name": "Name",
+  "type": "Type",
+  "status": "Status",
+  "dateT": "Processing date",
+  "demandeslist": "Demandes List",
+  "AddDemand": "Add Demande",
+  "newDemande": "New Demande",
+  "Add": "Add"
+}

@@ -4,5 +4,7 @@
   "enter": "Entrer",
   "exist": "Sortie",
   "number": "Nombre",
-  "status": "Statut"
+  "status": "Statut",
+  "open": "Overt",
+  "close": "Fermé"
 }

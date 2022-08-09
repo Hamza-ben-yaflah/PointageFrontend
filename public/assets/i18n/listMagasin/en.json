@@ -1,0 +1,11 @@
+{
+  "id": "Id",
+  "name": "Name",
+  "adress": "Address",
+  "phoneNumber": "Phone Number",
+  "employeeNumber": "Number of employees",
+  "newShop": "New Shop",
+  "Add": "Add",
+  "AddShop": "Add Shop",
+  "ShopList": "Shop List"
+}

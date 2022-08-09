@@ -1,0 +1,11 @@
+{
+  "id": "Id",
+  "name": "Nom",
+  "adress": "Addresse",
+  "phoneNumber": "Numéro de téléphone",
+  "employeeNumber": "Nombre d'employés",
+  "newShop": "Nouveau Magasin",
+  "Add": "Ajouter",
+  "AddShop": "Ajouter Magasin",
+  "ShopList": "Liste des Magasins"
+}
