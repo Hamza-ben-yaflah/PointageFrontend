@@ -1,29 +1,22 @@
-import "./datatable.scss";
-import { DataGrid, frFR } from "@mui/x-data-grid";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { userC, userR, Demande, MagasinR } from "../../datatablesource";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
+import { DataGrid, frFR } from "@mui/x-data-grid";
+import { clientR, Demande, MagasinR, userR } from "../../datatablesource";
+import { userC } from "../../pages/listEmployee/ListEmployee";
+import "./datatable.scss";
 
 type DatatabelProps = {
   columns: userC[];
-  rows: (userR | Demande | MagasinR)[];
+  rows: (userR | Demande | MagasinR | clientR)[];
   type: string;
   title: string;
-  link: {
+  link?: {
     path: string;
     title: string;
   };
-  handleOpen: any;
+  handleOpen?: (e: any) => void;
+  handleEdit?: (id: number) => void;
+  handleDelete?: (id: number) => void;
+  // handleUpdate() :void;
 };
 
 const Datatable = ({
@@ -33,13 +26,10 @@ const Datatable = ({
   link,
   title,
   handleOpen,
-}: DatatabelProps) => {
-  const [data, setData] = useState(rows || []);
-
-  const handleDelete = (id: number) => {
-    setData(data.filter((item) => item.id !== id));
-  };
-
+  handleEdit,
+  handleDelete,
+}: // handleUpdate
+DatatabelProps) => {
   const actionColumn = [
     {
       field: "action",
@@ -48,12 +38,16 @@ const Datatable = ({
       renderCell: (params: any) => {
         return (
           <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
-              <div className="viewButton">Edit</div>
-            </Link>
+            <div
+              className="viewButton"
+              onClick={() => handleEdit && handleEdit(params.row.id)}
+            >
+              Edit
+            </div>
+
             <div
               className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
+              onClick={() => handleDelete && handleDelete(params.row.id)}
             >
               Delete
             </div>
@@ -67,13 +61,13 @@ const Datatable = ({
       <div className="datatable">
         <div className="datatableTitle">
           {title}
-
-          <div style={{ display: "flex", justifyContent: "space-around" }}>
-            <input className="search" type="text" placeholder="Search..." />
-            <Button className="link" onClick={handleOpen}>
-              {link.title}
-            </Button>
-          </div>
+          {link ? (
+            <div style={{ display: "flex", justifyContent: "space-around" }}>
+              <Button className="link" onClick={handleOpen}>
+                {link.title}
+              </Button>
+            </div>
+          ) : null}
         </div>
 
         <DataGrid
@@ -87,7 +81,7 @@ const Datatable = ({
             },
           }}
           className="datagrid"
-          rows={data}
+          rows={rows || []}
           columns={columns.concat(actionColumn)}
           pageSize={9}
           rowsPerPageOptions={[9]}

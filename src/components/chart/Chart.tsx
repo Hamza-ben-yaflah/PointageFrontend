@@ -1,22 +1,6 @@
 import "./chart.scss";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import { DataGrid } from "@mui/x-data-grid";
 
-const data = [
-  { name: "January", Total: 1200 },
-  { name: "February", Total: 2100 },
-  { name: "March", Total: 800 },
-  { name: "April", Total: 1600 },
-  { name: "May", Total: 900 },
-  { name: "June", Total: 1700 },
-];
+import { DataGrid } from "@mui/x-data-grid";
 
 type ChartProps = {
   title: string;

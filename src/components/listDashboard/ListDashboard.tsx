@@ -32,6 +32,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const ListDashboard = () => {
   const { t } = useTranslation(["listDashboard"]);
+  const open = t("open");
+  const close = t("close");
   const rows = [
     {
       id: 1143155,
@@ -46,7 +48,7 @@ const ListDashboard = () => {
       Entrer: ["9.00h", "9.00h", "9.00h", "9.00h"],
       Sortie: ["--:--", "--:--", "--:--", "--:--"],
       nombre: 4,
-      status: "Ouvert",
+      status: open,
     },
     {
       id: 2235235,
@@ -56,7 +58,7 @@ const ListDashboard = () => {
       Entrer: [],
       Sortie: [],
       nombre: 0,
-      status: "fermé",
+      status: close,
       Notification: () => {
         return (
           <div className="items">
@@ -81,7 +83,7 @@ const ListDashboard = () => {
       Entrer: ["10.00h", "10.00h", "10.00h", "10.00h"],
       Sortie: ["--:--", "--:--", "--:--", "--:--"],
       nombre: 4,
-      status: "Ouvert",
+      status: open,
     },
     {
       id: 2357741,
@@ -91,7 +93,7 @@ const ListDashboard = () => {
       Entrer: ["11.15h", "11.15h"],
       Sortie: ["18:30h", "18:30h"],
       nombre: 2,
-      status: "Ouvert",
+      status: open,
     },
     {
       id: 2342355,
@@ -101,7 +103,7 @@ const ListDashboard = () => {
       Entrer: ["9.36h"],
       Sortie: ["18:30h"],
       nombre: 1,
-      status: "Ouvert",
+      status: open,
     },
   ];
   return (

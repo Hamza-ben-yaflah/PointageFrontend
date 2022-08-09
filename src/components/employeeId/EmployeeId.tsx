@@ -103,7 +103,7 @@ const EmployeeId = () => {
                   multiline
                   rows={2}
                   {...params}
-                  sx={{ m: 1, width: "50ch" }}
+                  sx={{ m: 1, width: "50ch", color: "white" }}
                 />
               )}
             />

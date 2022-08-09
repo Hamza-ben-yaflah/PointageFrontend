@@ -26,10 +26,7 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="wrapper">
-        <div className="search">
-          <input type="text" placeholder="Search..." />
-          <SearchOutlinedIcon />
-        </div>
+        <div className="search"></div>
         <div className="items">
           <select
             className="item"
@@ -39,23 +36,13 @@ const Navbar = () => {
             <option value="en">English</option>
             <option value="fr">Francais</option>
           </select>
-          <div className="item">
-            <DarkModeOutlinedIcon
-              className="icon"
-              // onClick={() => dispatch({ type: "TOGGLE" })}
-            />
-          </div>
-          <div className="item">
-            <FullscreenExitOutlinedIcon className="icon" />
-          </div>
+          <div className="item"></div>
+          <div className="item"></div>
           <div className="item">
             <NotificationsNoneOutlinedIcon className="icon" />
             <div className="counter">1</div>
           </div>
-          <div className="item">
-            <ChatBubbleOutlineOutlinedIcon className="icon" />
-            <div className="counter">2</div>
-          </div>
+
           <div className="item">
             <ListOutlinedIcon className="icon" />
           </div>
