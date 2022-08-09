@@ -1,27 +1,29 @@
 import Sidebar from "../../components/sidebar/Sidebar";
+import "./listShop.scss";
 import Navbar from "../../components/navbar/Navbar";
 import Datatable from "../../components/datatable/Datatable";
-import { Demande, DemandeRows } from "../../datatablesource";
+import { MagasinR, MagasinRows } from "../../datatablesource";
+import { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-const ListDemande = () => {
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const { t } = useTranslation(["listDemande"]);
+const ListShop = () => {
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [row, setRow] = useState<any>();
-  const [dataRow, setDataRow] = useState<Demande[]>(DemandeRows);
+  const [dataRow, setDataRow] = useState<MagasinR[]>(MagasinRows);
+  const { t } = useTranslation(["listMagasin"]);
 
+  const handleOpen = () => setOpen(true);
   const handleEdit = (id: number) => {
-    setRow(DemandeRows.find((el) => el.id === id));
+    setRow(MagasinRows.find((el) => el.id === id));
     setOpenEdit(true);
   };
+  const handleClose = () => setOpen(false);
 
   const handleDelete = (id: number) => {
     setDataRow(dataRow.filter((el) => el.id !== id));
@@ -30,17 +32,16 @@ const ListDemande = () => {
   const handleSubmitEdit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const updatedDemande: Demande = {
+    const updatedMagasin: MagasinR = {
       id: row.id,
-      name: data.get("name")?.toString()!,
-      type: data.get("type")?.toString()!,
-      status: data.get("status")?.toString()!,
-      date: data.get("date")?.toString()!,
-      dateTreatment: data.get("treatement")?.toString()!,
+      name: data.get("shopname")?.toString()!,
+      adresse: data.get("adresse")?.toString()!,
+      phonenumber: Number(data.get("phonenumber")),
+      nombre: Number(data.get("number")),
     };
     const copyMagasin = dataRow.map((obj) => {
       if (obj.id === row.id) {
-        return updatedDemande;
+        return updatedMagasin;
       }
       return obj;
     });
@@ -51,57 +52,57 @@ const ListDemande = () => {
   const handleSubmitAdd = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const AddedDemanede: Demande = {
+    const AddeddMagasin: MagasinR = {
       id: dataRow.length + 1,
-      name: data.get("name")?.toString()!,
-      type: data.get("type")?.toString()!,
-      status: data.get("status")?.toString()!,
-      date: data.get("date")?.toString()!,
-      dateTreatment: data.get("dateTreatment")?.toString()!,
+      name: data.get("shopname")?.toString()!,
+      adresse: data.get("adresse")?.toString()!,
+      phonenumber: Number(data.get("phonenumber")),
+      nombre: Number(data.get("number")),
     };
-    setDataRow([...dataRow, AddedDemanede]);
+
+    setDataRow([...dataRow, AddeddMagasin]);
     setOpen(false);
   };
 
-  const DemandeColumn = [
+  const MagasinColumns = [
     {
-      field: "date",
-      headerName: t("date"),
-      width: 230,
+      field: "id",
+      headerName: t("id"),
+      width: 70,
     },
     {
       field: "name",
       headerName: t("name"),
-      width: 230,
-    },
-    {
-      field: "type",
-      headerName: t("type"),
-      width: 230,
-    },
-    {
-      field: "status",
-      headerName: t("status"),
+
       width: 230,
       renderCell: (params: any) => {
         return (
-          <div className="cellAction">
-            <div>Rejected</div>
-            <div className="viewButton" style={{ color: "green" }}>
-              ✓
-            </div>
-
-            <div className="deleteButton">X</div>
+          <div className="cellWithImg">
+            <Link to="/products/test" style={{ textDecoration: "none" }}>
+              {params.row.name}
+            </Link>
           </div>
         );
       },
     },
     {
-      field: "dateTreatment",
-      headerName: t("Date of Treatment"),
+      field: "adresse",
+      headerName: t("adress"),
       width: 230,
     },
+
+    {
+      field: "phonenumber",
+      headerName: t("phoneNumber"),
+      width: 100,
+    },
+    {
+      field: "nombre",
+      headerName: t("employeeNumber"),
+      width: 160,
+    },
   ];
+  console.log(row);
 
   const style = {
     position: "absolute" as "absolute",
@@ -121,89 +122,17 @@ const ListDemande = () => {
       <div className="listContainer">
         <Navbar />
         <Datatable
-          columns={DemandeColumn}
+          columns={MagasinColumns}
           rows={dataRow}
-          type="demande"
-          title={t("demandeslist")}
-          link={{ title: t("AddDemand"), path: "/users/new" }}
+          type="Magasin"
+          title={t("ShopList")}
+          link={{ title: t("AddShop"), path: "/users/new" }}
           handleOpen={handleOpen}
           handleEdit={handleEdit}
           handleDelete={handleDelete}
         />
       </div>
       <div>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
-              sx={{ mb: 2 }}
-            >
-              {t("newDemande")}
-            </Typography>
-            <Box
-              component="form"
-              onSubmit={handleSubmitAdd}
-              sx={{
-                "& > :not(style)": { m: 1, width: "35ch" },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
-                required
-                id="name"
-                name="name"
-                label="Name"
-                variant="outlined"
-              />
-              <TextField
-                required
-                id="type"
-                name="type"
-                label="Type"
-                variant="outlined"
-                defaultValue={row?.type}
-              />
-              <TextField
-                required
-                id="status"
-                name="status"
-                label="Status"
-                variant="outlined"
-              />
-              <TextField
-                required
-                id="date"
-                name="date"
-                label="Date"
-                variant="outlined"
-              />
-              <TextField
-                required
-                id="dateTreatment"
-                name="dateTreatment"
-                label="Date of Treatement"
-                variant="outlined"
-              />
-              <Button
-                variant="contained"
-                type="submit"
-                disableElevation
-                sx={{ ml: 35, mt: 5 }}
-              >
-                {t("Add")}
-              </Button>
-            </Box>
-          </Box>
-        </Modal>
-
         <Modal
           open={openEdit}
           onClose={handleClose}
@@ -217,7 +146,7 @@ const ListDemande = () => {
               component="h2"
               sx={{ mb: 2 }}
             >
-              {t("newDemande")}
+              Edit Shop
             </Typography>
             <Box
               component="form"
@@ -226,53 +155,116 @@ const ListDemande = () => {
                 "& > :not(style)": { m: 1, width: "35ch" },
               }}
               noValidate
-              autoComplete="off"
             >
               <TextField
                 required
-                id="name"
-                name="name"
-                label="Name"
+                id="shopname"
+                name="shopname"
+                label="Shop Name"
                 variant="outlined"
                 defaultValue={row?.name}
               />
               <TextField
                 required
-                id="type"
-                name="type"
-                label="Type"
+                id="adresse"
+                name="adresse"
+                label="Adresse"
                 variant="outlined"
-                defaultValue={row?.type}
+                defaultValue={row?.adresse}
               />
               <TextField
                 required
-                id="status"
-                name="status"
-                label="Status"
+                id="phonenumber"
+                name="phonenumber"
+                label="Phone Number"
                 variant="outlined"
-                defaultValue={row?.status}
+                defaultValue={row?.phonenumber}
               />
               <TextField
                 required
-                id="date"
-                name="date"
-                label="Date"
+                id="number"
+                name="number"
+                label="Number of employees"
                 variant="outlined"
-                defaultValue={row?.date}
-              />
-              <TextField
-                required
-                id="dateTreatment"
-                name="dateTreatment"
-                label="Date of Treatement"
-                variant="outlined"
-                defaultValue={row?.dateTreatment}
+                defaultValue={row?.nombre}
               />
               <Button
                 type="submit"
+                disableElevation
+                sx={{ mr: 1 }}
+                className="btn"
+              >
+                Save
+              </Button>
+              <Button
+                variant="contained"
+                disableElevation
+                onClick={() => setOpenEdit(false)}
+              >
+                Cancel
+              </Button>
+            </Box>
+          </Box>
+        </Modal>
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              sx={{ mb: 2 }}
+            >
+              {t("newShop")}
+            </Typography>
+
+            <Box
+              component="form"
+              sx={{
+                "& > :not(style)": { m: 1, width: "35ch" },
+              }}
+              noValidate
+              onSubmit={handleSubmitAdd}
+              autoComplete="off"
+            >
+              <TextField
+                required
+                id="shopname"
+                name="shopname"
+                label="Shop Name"
+                variant="outlined"
+              />
+              <TextField
+                required
+                id="adresse"
+                name="adresse"
+                label="Adresse"
+                variant="outlined"
+              />
+              <TextField
+                required
+                id="phonenumber"
+                name="phonenumber"
+                label="Phone Number"
+                variant="outlined"
+              />
+              <TextField
+                required
+                id="number"
+                name="number"
+                label="Number of employees"
+                variant="outlined"
+              />
+              <Button
                 variant="contained"
                 disableElevation
                 sx={{ ml: 35, mt: 5 }}
+                type="submit"
               >
                 {t("Add")}
               </Button>
@@ -284,4 +276,4 @@ const ListDemande = () => {
   );
 };
 
-export default ListDemande;
+export default ListShop;

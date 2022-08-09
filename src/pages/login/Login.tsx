@@ -13,6 +13,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./login.scss";
+import Button from "@mui/material/Button";
+
 function Copyright(props: any) {
   return (
     <Typography
@@ -30,7 +32,7 @@ function Copyright(props: any) {
     </Typography>
   );
 }
-
+console.log("heloo");
 const theme = createTheme();
 
 export default function SignIn() {
@@ -41,6 +43,7 @@ export default function SignIn() {
       email: data.get("email"),
       password: data.get("password"),
     });
+    console.log("hello");
   };
 
   return (
@@ -91,21 +94,21 @@ export default function SignIn() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <LinkPage to="/" style={{ textDecoration: "none" }}>
-              <button
-                className="btn"
-                type="submit"
-                style={{
-                  marginTop: "24px",
-                  marginBottom: "16px",
-                  width: "100%",
-                  color: "white",
-                  backgroundColor: "#1976d2",
-                }}
-              >
-                Sign In
-              </button>
-            </LinkPage>
+            {/* <LinkPage to="#" style={{ textDecoration: "none" }}> */}
+            <Button
+              className="btn"
+              type="submit"
+              style={{
+                marginTop: "24px",
+                marginBottom: "16px",
+                width: "100%",
+                color: "white",
+                backgroundColor: "#1976d2",
+              }}
+            >
+              Sign In
+            </Button>
+            {/* </LinkPage> */}
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
