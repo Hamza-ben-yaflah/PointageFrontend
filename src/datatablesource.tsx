@@ -1,63 +1,4 @@
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import { ReactElement } from "react";
-import { Link } from "react-router-dom";
 import "./style/dark.scss";
-import { useTranslation } from "react-i18next";
-export interface userC {
-  field: string;
-  headerName: string;
-  width: number;
-  renderCell?: (params?: any) => ReactElement;
-}
-
-export const userColumns: userC[] = [
-  {
-    field: "id",
-    headerName: "ID",
-    width: 70,
-  },
-  {
-    field: "employee",
-    headerName: "Employee",
-    width: 230,
-    renderCell: (params) => {
-      return (
-        <div className="cellWithImg">
-          <img className="cellImg" src={params.row.img} alt="avatar" />
-          <Link to="/users/test" style={{ textDecoration: "none" }}>
-            {params.row.username}
-          </Link>
-        </div>
-      );
-    },
-  },
-  {
-    field: "shop",
-    headerName: "Shop",
-
-    width: 230,
-  },
-
-  {
-    field: "phonenumber",
-    headerName: "Phone",
-
-    width: 100,
-  },
-  {
-    field: "notification",
-    headerName: "Notification",
-
-    width: 160,
-    renderCell: () => {
-      return (
-        <div>
-          <NotificationsNoneOutlinedIcon />
-        </div>
-      );
-    },
-  },
-];
 
 export interface userR {
   id: number;
@@ -91,7 +32,7 @@ export const userRows: userR[] = [
     username: "Lannister",
     img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
     shop: "Ariana",
-    status: "pending",
+    status: "active",
     phonenumber: 20212232,
   },
   {
@@ -107,67 +48,22 @@ export const userRows: userR[] = [
     username: "Targaryen",
     img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
     shop: "Tunis",
-    status: "passive",
+    status: "active",
     phonenumber: 20212232,
-  },
-];
-
-export const MagasinColumns = [
-  {
-    field: "id",
-    headerName: "ID",
-    width: 70,
-  },
-  {
-    field: "name",
-    headerName: "Name",
-
-    width: 230,
-    renderCell: (params: any) => {
-      return (
-        <div className="cellWithImg">
-          <Link to="/products/test" style={{ textDecoration: "none" }}>
-            {params.row.name}
-          </Link>
-        </div>
-      );
-    },
-  },
-  {
-    field: "adresse",
-    headerName: "adresse",
-    width: 230,
-  },
-
-  {
-    field: "phonenumber",
-    headerName: "Phone",
-    width: 100,
-  },
-  {
-    field: "nombre",
-    headerName: "Nombre d'employe",
-    width: 160,
   },
 ];
 
 export interface MagasinR {
   id: number;
-  username: string;
   name: string;
-  status: string;
   adresse: string;
   phonenumber: number;
-  img: string;
   nombre: number;
 }
 
 export const MagasinRows: MagasinR[] = [
   {
     id: 1,
-    username: "Snow",
-    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-    status: "active",
     name: "Bizerte",
     phonenumber: 20212232,
     adresse: "6 rue dahlia cite zouhour",
@@ -175,43 +71,59 @@ export const MagasinRows: MagasinR[] = [
   },
   {
     id: 2,
-    username: "Jamie Lannister",
-    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-    name: "Bardo",
-    status: "passive",
+    name: "Bizerte",
     phonenumber: 20212232,
     adresse: "6 rue dahlia cite zouhour",
     nombre: 4,
   },
   {
     id: 3,
-    username: "Lannister",
-    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-    name: "Ariana",
-    status: "pending",
+    name: "Bizerte",
     phonenumber: 20212232,
     adresse: "6 rue dahlia cite zouhour",
     nombre: 0,
   },
   {
     id: 4,
-    username: "Stark",
-    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
     name: "Rue de marseille ",
-    status: "active",
     phonenumber: 20212232,
     adresse: "6 rue dahlia cite zouhour",
     nombre: 2,
   },
   {
     id: 5,
-    username: "Targaryen",
-    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
     name: "Tunis",
-    status: "passive",
     phonenumber: 20212232,
     adresse: "6 rue dahlia cite zouhour",
     nombre: 1,
+  },
+];
+export interface clientR {
+  id: number;
+  organizationName: string;
+  clientName: string;
+  phonenumber: number;
+}
+
+export const clientRows: clientR[] = [
+  {
+    id: 1,
+    organizationName: "Seher Otour",
+    clientName: "Mahrez",
+    phonenumber: 20212232,
+  },
+  {
+    id: 2,
+    organizationName: "Seher Otour",
+    clientName: "Mahrez",
+    phonenumber: 20212232,
+  },
+
+  {
+    id: 3,
+    organizationName: "Seher Otour",
+    clientName: "Mahrez",
+    phonenumber: 20212232,
   },
 ];
 
@@ -221,7 +133,7 @@ export interface Demande {
   name: string;
   type: string;
   status: string;
-  dateT: string;
+  dateTreatment: string;
 }
 
 export const DemandeRows: Demande[] = [
@@ -231,7 +143,7 @@ export const DemandeRows: Demande[] = [
     name: "fathi",
     type: "sortie",
     status: "Accepted",
-    dateT: "24/11/2002",
+    dateTreatment: "24/11/2002",
   },
   {
     id: 2,
@@ -239,7 +151,7 @@ export const DemandeRows: Demande[] = [
     name: "fathi",
     type: "congé de maladie",
     status: "En cours",
-    dateT: "24/11/2002",
+    dateTreatment: "24/11/2002",
   },
   {
     id: 3,
@@ -247,7 +159,7 @@ export const DemandeRows: Demande[] = [
     name: "fathi",
     type: "congé",
     status: "rejected",
-    dateT: "24/11/2002",
+    dateTreatment: "24/11/2002",
   },
   {
     id: 4,
@@ -255,34 +167,6 @@ export const DemandeRows: Demande[] = [
     name: "fathi",
     type: "congé",
     status: "En cours",
-    dateT: "24/11/2002",
-  },
-];
-
-export const DemandeColumn = [
-  {
-    field: "date",
-    headerName: "Date",
-    width: 230,
-  },
-  {
-    field: "name",
-    headerName: "Name",
-    width: 230,
-  },
-  {
-    field: "type",
-    headerName: "Type",
-    width: 230,
-  },
-  {
-    field: "status",
-    headerName: "Etat",
-    width: 230,
-  },
-  {
-    field: "dateT",
-    headerName: "Date de traitement",
-    width: 230,
+    dateTreatment: "24/11/2002",
   },
 ];

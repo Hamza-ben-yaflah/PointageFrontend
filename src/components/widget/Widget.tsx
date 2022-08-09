@@ -16,7 +16,7 @@ interface data {
   icon: ReactElement;
 }
 const Widget = ({ type }: widgetProps) => {
-  const { t } = useTranslation(["home"]);
+  const { t } = useTranslation(["widget"]);
   let data: data | undefined;
 
   //temporary
@@ -26,9 +26,9 @@ const Widget = ({ type }: widgetProps) => {
   switch (type) {
     case "user":
       data = {
-        title: t("pointage"),
+        title: t("employees"),
         isMoney: false,
-        link: "See all employes",
+        link: t("allemployees"),
         icon: (
           <PersonOutlinedIcon
             className="icon"
@@ -42,9 +42,9 @@ const Widget = ({ type }: widgetProps) => {
       break;
     case "order":
       data = {
-        title: "MAGASINS",
+        title: t("shop"),
         isMoney: false,
-        link: "View all magasins",
+        link: t("allshops"),
         icon: (
           <ShoppingCartOutlinedIcon
             className="icon"
@@ -58,9 +58,9 @@ const Widget = ({ type }: widgetProps) => {
       break;
     case "earning":
       data = {
-        title: "DEMANDES",
+        title: t("demandes"),
         isMoney: false,
-        link: "View all demandes",
+        link: t("alldemandes"),
         icon: (
           <MonetizationOnOutlinedIcon
             className="icon"
