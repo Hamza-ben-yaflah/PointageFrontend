@@ -4,13 +4,10 @@ import Navbar from "../../components/navbar/Navbar";
 import Datatable from "../../components/datatable/Datatable";
 import { MagasinR, MagasinRows } from "../../datatablesource";
 import { useState } from "react";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import AddShop from "./AddShop";
+import EditShop from "./EditShop";
 const ListShop = () => {
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
@@ -102,7 +99,6 @@ const ListShop = () => {
       width: 160,
     },
   ];
-  console.log(row);
 
   const style = {
     position: "absolute" as "absolute",
@@ -133,144 +129,20 @@ const ListShop = () => {
         />
       </div>
       <div>
-        <Modal
-          open={openEdit}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
-              sx={{ mb: 2 }}
-            >
-              Edit Shop
-            </Typography>
-            <Box
-              component="form"
-              onSubmit={handleSubmitEdit}
-              sx={{
-                "& > :not(style)": { m: 1, width: "35ch" },
-              }}
-              noValidate
-            >
-              <TextField
-                required
-                id="shopname"
-                name="shopname"
-                label="Shop Name"
-                variant="outlined"
-                defaultValue={row?.name}
-              />
-              <TextField
-                required
-                id="adresse"
-                name="adresse"
-                label="Adresse"
-                variant="outlined"
-                defaultValue={row?.adresse}
-              />
-              <TextField
-                required
-                id="phonenumber"
-                name="phonenumber"
-                label="Phone Number"
-                variant="outlined"
-                defaultValue={row?.phonenumber}
-              />
-              <TextField
-                required
-                id="number"
-                name="number"
-                label="Number of employees"
-                variant="outlined"
-                defaultValue={row?.nombre}
-              />
-              <Button
-                type="submit"
-                disableElevation
-                sx={{ mr: 1 }}
-                className="btn"
-              >
-                Save
-              </Button>
-              <Button
-                variant="contained"
-                disableElevation
-                onClick={() => setOpenEdit(false)}
-              >
-                Cancel
-              </Button>
-            </Box>
-          </Box>
-        </Modal>
-
-        <Modal
+        <AddShop
+          handleSubmitAdd={handleSubmitAdd}
+          style={style}
+          row={row}
           open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
-              sx={{ mb: 2 }}
-            >
-              {t("newShop")}
-            </Typography>
-
-            <Box
-              component="form"
-              sx={{
-                "& > :not(style)": { m: 1, width: "35ch" },
-              }}
-              noValidate
-              onSubmit={handleSubmitAdd}
-              autoComplete="off"
-            >
-              <TextField
-                required
-                id="shopname"
-                name="shopname"
-                label="Shop Name"
-                variant="outlined"
-              />
-              <TextField
-                required
-                id="adresse"
-                name="adresse"
-                label="Adresse"
-                variant="outlined"
-              />
-              <TextField
-                required
-                id="phonenumber"
-                name="phonenumber"
-                label="Phone Number"
-                variant="outlined"
-              />
-              <TextField
-                required
-                id="number"
-                name="number"
-                label="Number of employees"
-                variant="outlined"
-              />
-              <Button
-                variant="contained"
-                disableElevation
-                sx={{ ml: 35, mt: 5 }}
-                type="submit"
-              >
-                {t("Add")}
-              </Button>
-            </Box>
-          </Box>
-        </Modal>
+          handleClose={handleClose}
+        />
+        <EditShop
+          handleSubmitEdit={handleSubmitEdit}
+          style={style}
+          row={row}
+          open={openEdit}
+          handleClose={() => setOpenEdit(false)}
+        />
       </div>
     </div>
   );
