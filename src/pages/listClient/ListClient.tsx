@@ -8,6 +8,7 @@ import Datatable from "../../components/datatable/Datatable";
 import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { clientR, clientRows } from "../../datatablesource";
+import EditClient from "./EditClient";
 
 const ListClient = () => {
   const [openEdit, setOpenEdit] = useState(false);
@@ -96,72 +97,13 @@ const ListClient = () => {
           />
         </div>
         <div>
-          <Modal
+          <EditClient
+            handleSubmitEdit={handleSubmitEdit}
+            style={style}
+            row={row}
             open={openEdit}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Typography
-                id="modal-modal-title"
-                variant="h6"
-                component="h2"
-                sx={{ mb: 2 }}
-              >
-                Edit Shop
-              </Typography>
-              <Box
-                component="form"
-                onSubmit={handleSubmitEdit}
-                sx={{
-                  "& > :not(style)": { m: 1, width: "35ch" },
-                }}
-                noValidate
-              >
-                <TextField
-                  required
-                  id="organizationName"
-                  name="organizationName"
-                  label="Organization Name"
-                  variant="outlined"
-                  defaultValue={row?.organizationName}
-                />
-                <TextField
-                  required
-                  id="clientName"
-                  name="clientName"
-                  label="Client Name"
-                  variant="outlined"
-                  defaultValue={row?.clientName}
-                />
-                <TextField
-                  required
-                  id="phonenumber"
-                  name="phonenumber"
-                  label="Phone Number"
-                  variant="outlined"
-                  defaultValue={row?.phonenumber}
-                />
-
-                <Button
-                  type="submit"
-                  disableElevation
-                  sx={{ mr: 1 }}
-                  className="btn"
-                >
-                  Save
-                </Button>
-                <Button
-                  variant="contained"
-                  disableElevation
-                  onClick={() => setOpenEdit(false)}
-                >
-                  Cancel
-                </Button>
-              </Box>
-            </Box>
-          </Modal>
+            handleClose={() => setOpenEdit(false)}
+          />
         </div>
       </div>
     </div>
