@@ -10,7 +10,7 @@ import EditRequest from "./EditRequest";
 const ListRequest = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { t } = useTranslation(["listDemande"]);
+  const { t } = useTranslation(["listRequest"]);
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [row, setRow] = useState<any>();
@@ -23,6 +23,16 @@ const ListRequest = () => {
 
   const handleDelete = (id: number) => {
     setDataRow(dataRow.filter((el) => el.id !== id));
+  };
+
+  const handleDecision = (id: number, decision: string) => {
+    const copyRequest = dataRow.map((obj) => {
+      if (obj.id === id) {
+        obj.status = decision;
+      }
+      return obj;
+    });
+    setDataRow(copyRequest);
   };
 
   const handleSubmitEdit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -85,11 +95,20 @@ const ListRequest = () => {
         return (
           <div className="cellAction">
             <div>{dataRow.find((row) => row.id === params.row.id)?.status}</div>
-            <div className="viewButton" style={{ color: "green" }}>
+            <div
+              className="viewButton"
+              style={{ color: "green" }}
+              onClick={() => handleDecision(params.row.id, "Accpted")}
+            >
               ✓
             </div>
 
-            <div className="deleteButton">X</div>
+            <div
+              className="deleteButton"
+              onClick={() => handleDecision(params.row.id, "Rejected")}
+            >
+              X
+            </div>
           </div>
         );
       },
@@ -136,8 +155,8 @@ const ListRequest = () => {
           row={row}
           open={open}
           handleClose={handleClose}
+          t={t}
         />
-
         <EditRequest
           handleSubmitEdit={handleSubmitEdit}
           style={style}

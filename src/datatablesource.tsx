@@ -142,7 +142,7 @@ export const DemandeRows: Demande[] = [
     date: "24/11/2002",
     name: "fathi",
     type: "sortie",
-    status: "Accepted",
+    status: "En cours",
     dateTreatment: "24/11/2002",
   },
   {
@@ -158,7 +158,7 @@ export const DemandeRows: Demande[] = [
     date: "25/11/2014",
     name: "fathi",
     type: "congé",
-    status: "rejected",
+    status: "En cours",
     dateTreatment: "24/11/2002",
   },
   {

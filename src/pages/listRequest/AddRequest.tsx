@@ -4,7 +4,6 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
 
 const AddRequest = ({
   handleSubmitAdd,
@@ -12,9 +11,8 @@ const AddRequest = ({
   row,
   open,
   handleClose,
+  t,
 }: any) => {
-  const { t } = useTranslation(["listDemande"]);
-
   return (
     <>
       <Modal

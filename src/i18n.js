@@ -24,7 +24,7 @@ i18n
       "widget",
       "sidebar",
       "listMagasin",
-      "listDemande",
+      "listRequest",
     ],
 
     interpolation: {

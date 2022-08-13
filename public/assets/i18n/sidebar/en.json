@@ -5,9 +5,9 @@
   "dashboard": "Dashboard",
   "employee": "Employee",
   "shop": "Shop",
-  "demandes": "Demande",
+  "demandes": "Request",
   "user": "User",
-  "users": "Users",
+  "users": "Super Admin",
   "logout": "Logout",
   "client": "Client"
 }

@@ -4,8 +4,8 @@
   "type": "Type",
   "status": "Status",
   "dateT": "Processing date",
-  "demandeslist": "Demandes List",
-  "AddDemand": "Add Demande",
-  "newDemande": "New Demande",
+  "demandeslist": "Request List",
+  "AddDemand": "Add Request",
+  "newDemande": "New Request",
   "Add": "Add"
 }

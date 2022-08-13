@@ -4,7 +4,7 @@ import Login from "./pages/login/Login";
 import ListEmployee from "./pages/listEmployee/ListEmployee";
 import Indetification from "./pages/identification/Indentification";
 import ListShop from "./pages/listShop/ListShop";
-import ListDemande from "./pages/listDemande/ListDemande";
+import ListRequest from "./pages/listRequest/ListRequest";
 import SingleEmployee from "./pages/singleEmployee/SingleEmployee";
 import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -13,7 +13,7 @@ import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import EmployeeId from "./components/employeeId/EmployeeId";
-import ListUsers from "./pages/listUsers/ListUsers";
+import ListSuperVisor from "./pages/listSuperVisor/ListSuperVisor";
 import SingleShop from "./pages/singleShop/SingleShop";
 import Signup from "./pages/signup/signup";
 import SignupForm from "./components/signupForm/SignupForm";
@@ -40,10 +40,10 @@ function App() {
                   element={<New inputs={userInputs} title="Add Employé " />}
                 />
               </Route>
-              <Route path="admins" element={<ListUsers />} />
+              <Route path="admins" element={<ListSuperVisor />} />
               <Route path="signup" element={<Signup />} />
               <Route path="signup/form" element={<SignupForm />} />
-              <Route path="demande" element={<ListDemande />} />
+              <Route path="demande" element={<ListRequest />} />
               <Route path="client" element={<ListClient />} />
 
               <Route path="products">

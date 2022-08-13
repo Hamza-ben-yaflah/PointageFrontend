@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Datatable from "../../components/datatable/Datatable";
-import { userRows } from "../../datatablesource";
+import { userR, userRows } from "../../datatablesource";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -18,8 +18,30 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import { userC } from "../listEmployee/ListEmployee";
-const ListUsers = () => {
+import EditSuperVisor from "./EditSuperVisor";
+const ListSuperVisor = () => {
   const { t } = useTranslation(["listemployee"]);
+
+  const handleSubmitEdit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const updatedEmployee: userR = {
+      id: row.id,
+      username: row.username,
+      img: row.img,
+      phonenumber: Number(data.get("phoneNumber")),
+      shop: data.get("shop")?.toString()!,
+      status: row.status,
+    };
+    const copyEmployee = userRows.map((obj) => {
+      if (obj.id === row.id) {
+        return updatedEmployee;
+      }
+      return obj;
+    });
+    setDataRow(copyEmployee);
+    setOpenEdit(false);
+  };
 
   const userColumns: userC[] = [
     {
@@ -73,10 +95,22 @@ const ListUsers = () => {
   const [age, setAge] = useState("");
   const [open, setOpen] = useState(false);
   const [file, setFile] = useState<any>();
+  const [row, setRow] = useState<any>();
+  const [dataRow, setDataRow] = useState<userR[]>(userRows);
+  const [openEdit, setOpenEdit] = useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value);
+  };
+  const handleEdit = (id: number) => {
+    setRow(userRows.find((el) => el.id === id));
+    setOpenEdit(true);
+  };
+
+  const handleDelete = (id: number) => {
+    setDataRow(dataRow.filter((el) => el.id !== id));
   };
 
   const style = {
@@ -98,11 +132,13 @@ const ListUsers = () => {
         <Navbar />
         <Datatable
           columns={userColumns}
-          rows={userRows}
+          rows={dataRow}
           type="user"
           title="Users list"
           link={{ title: "Add User", path: "/users/new" }}
           handleOpen={handleOpen}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
         />
       </div>
       <div>
@@ -205,9 +241,17 @@ const ListUsers = () => {
             </Button>
           </Box>
         </Modal>
+
+        <EditSuperVisor
+          handleSubmitEdit={handleSubmitEdit}
+          style={style}
+          row={row}
+          open={openEdit}
+          handleClose={() => setOpenEdit(false)}
+        />
       </div>
     </div>
   );
 };
 
-export default ListUsers;
+export default ListSuperVisor;
