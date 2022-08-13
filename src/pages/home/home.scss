@@ -29,3 +29,22 @@
     }
   }
 }
+
+@media screen and (max-width: 900px) {
+  .widgets {
+    display: "felx";
+    flex: 1 1;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 480px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .widgets {
+    display: "felx";
+    flex: 1 1;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 200px;
+  }
+}

@@ -134,7 +134,7 @@ const SignupOrganization = ({ Item }: any) => {
                     autoComplete="phoneNumber"
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} sm={6}>
                   <FormControl
                     sx={{
                       m: 1,
