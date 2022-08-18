@@ -1,43 +1,82 @@
 import AppBar from "@mui/material/AppBar";
 import Paper from "@mui/material/Paper";
-import { SelectChangeEvent } from "@mui/material/Select";
 import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StepWizard from "react-step-wizard";
-import SignupPackage from "./PackageModal";
-import SignupClient from "./SignupClient";
-import SignupOrganization from "./SignupOrganization";
+import ClientForm from "./ClientForm";
+import OrganizationForm from "./OrganizationForm";
+import PackageForm from "./PackageForm";
+
+interface UserDTO {
+  firstName: string;
+  lastName: string;
+  cin: string;
+  organizationName: string;
+  phoneNumber: string;
+  sex: string;
+  subscription: {
+    price: number;
+    startsAt: string;
+    endsAt: string;
+    packageId: string;
+  };
+  address: {
+    country: string;
+    state: string;
+  };
+  email: string;
+  password: string;
+}
 
 const theme = createTheme();
 
 const Signup = () => {
-  const [pack, setPack] = useState("");
-  const [delay, setDelay] = useState("");
-  const [userState, setUserState] = useState<any>();
-  const [clientInfo, setClientInfo] = useState<any>();
-  const [organizationInfo, setOrganizationInfo] = useState<any>();
+  const [userState, setUserState] = useState<UserDTO>();
+  const [clientInfo, setClientInfo] =
+    useState<Omit<UserDTO, "address" | "subscription" | "organizationName">>();
+  const [organizationInfo, setOrganizationInfo] =
+    useState<Pick<UserDTO, "organizationName" | "address">>();
 
-  const handleChangeDelay = (event: SelectChangeEvent) => {
-    setDelay(event.target.value);
-  };
-
-  const handleChangePack = (event: SelectChangeEvent) => {
-    setPack(event.target.value);
-  };
-
-  const handleClientInfo = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleClientInfo = (
+    event: React.FormEvent<HTMLFormElement> & { sex: string }
+  ) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    setClientInfo({ email: data.get("email") });
+    setClientInfo({
+      email: data.get("email")!.toString(),
+      firstName: data.get("firstName")!.toString(),
+      lastName: data.get("lastName")!.toString(),
+      cin: data.get("cin")!.toString().toString(),
+      password: data.get("password")!.toString().toString(),
+      phoneNumber: data.get("PhoneNumber")!.toString(),
+      sex: data.get("sex")!.toString(),
+    });
   };
 
   const handleOrganizationInfo = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    setOrganizationInfo({ organizationName: data.get("organizationName") });
+    setOrganizationInfo({
+      organizationName: data.get("organizationName")!.toString(),
+      address: {
+        country: data.get("country")!.toString(),
+        state: data.get("state")!.toString(),
+      },
+    });
+  };
+
+  const handleSubscriptionInfo = ({ pack, duration, price }: any) => {
+    setUserState({
+      ...userState!,
+      subscription: {
+        packageId: pack,
+        price: price,
+        startsAt: duration,
+        endsAt: duration,
+      },
+    });
   };
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -48,23 +87,31 @@ const Signup = () => {
     color: theme.palette.text.secondary,
   }));
 
+  const packs = [
+    { id: "1", name: "silver", price: 23, users_number: 50 },
+    { id: "1", name: "silver", price: 23, users_number: 50 },
+  ];
+
+  useEffect(() => {
+    console.log(userState);
+  }, [userState]);
+
   const onStepChange = (stepChange: {
     previousStep: number;
     activeStep: number;
   }) => {
     switch (stepChange.previousStep) {
       case 1:
-        setUserState({ ...userState, ...clientInfo });
+        setUserState({ ...userState!, ...clientInfo });
         break;
 
       case 2:
-        setUserState({ ...userState, ...organizationInfo });
+        setUserState({ ...userState!, ...organizationInfo });
         break;
 
       default:
         break;
     }
-    console.log(userState);
   };
 
   return (
@@ -78,22 +125,21 @@ const Signup = () => {
       </AppBar>
 
       <StepWizard onStepChange={onStepChange} isHashEnabled={true}>
-        <SignupClient
+        <ClientForm
           Item={Item}
           handleForm={handleClientInfo}
           hashKey={"client"}
         />
-        <SignupOrganization
+        <OrganizationForm
           Item={Item}
           handleForm={handleOrganizationInfo}
           hashKey={"organization"}
         />
-        <SignupPackage
-          pack={pack}
-          handleChangePack={handleChangePack}
-          delay={delay}
-          handleChangeDelay={handleChangeDelay}
-          hashKey={"package"}
+        <PackageForm
+          packs={packs}
+          Item={Item}
+          handleForm={handleSubscriptionInfo}
+          hashKey={"subscription"}
         />
       </StepWizard>
     </ThemeProvider>

@@ -15,22 +15,25 @@ import ImageUpload from "../../components/imageUpload/ImageUpload";
 
 interface ISignupClient extends Partial<StepWizardChildProps> {
   Item: any;
-  handleForm: (event: any) => void;
+  handleForm: (
+    event: React.FormEvent<HTMLFormElement> & { sex: string }
+  ) => void;
 }
 
-const SignupClient = ({
+const ClientForm = ({
   Item,
   handleForm,
   nextStep,
   previousStep,
+  currentStep,
 }: ISignupClient) => {
-  const [sex, setSexge] = useState("");
+  const [sex, setSex] = useState("");
   const handleChange = (event: SelectChangeEvent) => {
-    setSexge(event.target.value);
+    setSex(event.target.value);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    handleForm(event);
+    handleForm({ ...event, sex });
     nextStep!();
   };
 
@@ -142,6 +145,7 @@ const SignupClient = ({
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Button
+                    disabled={currentStep === 1}
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                     onClick={() => previousStep!()}
@@ -167,4 +171,4 @@ const SignupClient = ({
   );
 };
 
-export default SignupClient;
+export default ClientForm;

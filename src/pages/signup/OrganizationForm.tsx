@@ -13,7 +13,7 @@ interface ISignupOrganization extends Partial<StepWizardChildProps> {
   handleForm: (event: any) => void;
 }
 
-const SignupOrganization = ({
+const OrganizationForm = ({
   Item,
   handleForm,
   nextStep,
@@ -105,4 +105,4 @@ const SignupOrganization = ({
   );
 };
 
-export default SignupOrganization;
+export default OrganizationForm;
