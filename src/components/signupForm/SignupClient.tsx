@@ -1,20 +1,29 @@
-import Grid from "@mui/material/Grid";
-import React, { useState } from "react";
-import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
+import FormControl from "@mui/material/FormControl";
+import Grid from "@mui/material/Grid";
+import InputLabel from "@mui/material/InputLabel";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import React, { useState } from "react";
+import MenuItem from "@mui/material/MenuItem";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
+
 const SignupClient = ({ Item }: any) => {
-  const [fileShop, setFileShop] = useState<any>();
+  const [fileClient, setFileClient] = useState<any>();
+  const [sex, setSexge] = useState("");
+  const handleChange = (event: SelectChangeEvent) => {
+    setSexge(event.target.value);
+  };
   return (
     <>
       <Item>
         <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
-          SHOP
+          CLIENT
         </Typography>
-        <Container component="main" sx={{ mb: 11 }}>
+        <Container component="main">
           <CssBaseline />
           <Box
             sx={{
@@ -35,23 +44,24 @@ const SignupClient = ({ Item }: any) => {
                 <img
                   className="cellImg"
                   src={
-                    fileShop
-                      ? URL.createObjectURL(fileShop)
+                    fileClient
+                      ? URL.createObjectURL(fileClient)
                       : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                   }
                   alt=""
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="fileShop">
+                <label htmlFor="file">
                   <DriveFolderUploadOutlinedIcon className="icon" />
                 </label>
                 <input
                   type="file"
-                  id="fileShop"
+                  id="file"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    e.target?.files && setFileShop(e.target.files[0]);
-                    console.log(fileShop);
+                    e.target?.files && setFileClient(e.target.files[0]);
+
+                    console.log(fileClient);
                   }}
                   style={{ display: "none" }}
                 />
@@ -60,50 +70,49 @@ const SignupClient = ({ Item }: any) => {
             <Box
               component="form"
               noValidate
-              //   onSubmit={handleSubmit}
+              // onSubmit={handleSubmit}
               sx={{ mt: 3 }}
             >
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     autoComplete="given-name"
-                    name="shopname"
+                    name="firstName"
                     required
                     fullWidth
-                    id="shopname"
-                    label="shopname"
-                    autoFocus
+                    id="firstName"
+                    label="First Name"
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     required
                     fullWidth
-                    id="City"
-                    label="City"
-                    name="City"
-                    autoComplete="City"
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    autoComplete="family-name"
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     required
                     fullWidth
-                    id="state"
-                    label="State"
-                    name="state"
-                    autoComplete="state"
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     required
                     fullWidth
-                    name="PostalCode"
-                    label="PostalCode"
-                    type="PostalCode"
-                    id="PostalCode"
-                    autoComplete="PostalCode"
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
                   />
                 </Grid>
 
@@ -111,19 +120,41 @@ const SignupClient = ({ Item }: any) => {
                   <TextField
                     required
                     fullWidth
-                    name="country"
-                    label="Country"
-                    autoComplete="country"
+                    name="cin"
+                    label="CIN"
+                    autoComplete="cin"
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     required
                     fullWidth
-                    name="street"
-                    label="Street"
-                    autoComplete="street"
+                    name="phonenumber"
+                    label="PhoneNumber"
+                    autoComplete="phoneNumber"
                   />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <FormControl
+                    sx={{
+                      m: 1,
+                      minWidth: 300,
+                    }}
+                  >
+                    <InputLabel id="demo-simple-select-helper-label">
+                      Sex
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-helper-label"
+                      id="demo-simple-select-helper"
+                      value={sex}
+                      label="Sex"
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={"Men"}>Men</MenuItem>
+                      <MenuItem value={"Woman"}>Woman</MenuItem>
+                    </Select>
+                  </FormControl>
                 </Grid>
               </Grid>
             </Box>
