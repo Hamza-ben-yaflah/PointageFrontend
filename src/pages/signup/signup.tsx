@@ -1,223 +1,103 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardHeader from "@mui/material/CardHeader";
-import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
-import StarIcon from "@mui/icons-material/StarBorder";
+import Paper from "@mui/material/Paper";
+import { SelectChangeEvent } from "@mui/material/Select";
+import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-import { Link as LinkPage } from "react-router-dom";
-import GlobalStyles from "@mui/material/GlobalStyles";
-import Container from "@mui/material/Container";
+import * as React from "react";
+import { useState } from "react";
+import StepWizard from "react-step-wizard";
+import SignupPackage from "./PackageModal";
+import SignupClient from "./SignupClient";
+import SignupOrganization from "./SignupOrganization";
 
-function Copyright(props: any) {
+const theme = createTheme();
+
+const Signup = () => {
+  const [pack, setPack] = useState("");
+  const [delay, setDelay] = useState("");
+  const [userState, setUserState] = useState<any>();
+  const [clientInfo, setClientInfo] = useState<any>();
+  const [organizationInfo, setOrganizationInfo] = useState<any>();
+
+  const handleChangeDelay = (event: SelectChangeEvent) => {
+    setDelay(event.target.value);
+  };
+
+  const handleChangePack = (event: SelectChangeEvent) => {
+    setPack(event.target.value);
+  };
+
+  const handleClientInfo = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    setClientInfo({ email: data.get("email") });
+  };
+
+  const handleOrganizationInfo = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    setOrganizationInfo({ organizationName: data.get("organizationName") });
+  };
+
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  }));
+
+  const onStepChange = (stepChange: {
+    previousStep: number;
+    activeStep: number;
+  }) => {
+    switch (stepChange.previousStep) {
+      case 1:
+        setUserState({ ...userState, ...clientInfo });
+        break;
+
+      case 2:
+        setUserState({ ...userState, ...organizationInfo });
+        break;
+
+      default:
+        break;
+    }
+    console.log(userState);
+  };
+
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-const tiers = [
-  {
-    title: "Free",
-    price: "0",
-    description: ["10 employee ", "Help center access", "Email support"],
-    buttonText: "Sign up for free",
-    buttonVariant: "outlined",
-  },
-  {
-    title: "Sliver",
-    subheader: "Most popular",
-    price: "150",
-    description: [
-      "20 employee",
-
-      "Help center access",
-      "Priority email support",
-    ],
-    buttonText: "Get started",
-    buttonVariant: "contained",
-  },
-  {
-    title: "Gold",
-    price: "300",
-    description: ["50 employee", "Help center access", "Phone & email support"],
-    buttonText: "Get started",
-    buttonVariant: "outlined",
-  },
-];
-const footers = [
-  {
-    title: "Company",
-    description: ["Team", "History", "Contact us", "Locations"],
-  },
-  {
-    title: "Features",
-    description: [
-      "Cool stuff",
-      "Random feature",
-      "Team feature",
-      "Developer stuff",
-      "Another one",
-    ],
-  },
-  {
-    title: "Resources",
-    description: [
-      "Resource",
-      "Resource name",
-      "Another resource",
-      "Final resource",
-    ],
-  },
-  {
-    title: "Legal",
-    description: ["Privacy policy", "Terms of use"],
-  },
-];
-
-const signup = () => {
-  return (
-    <div>
-      <React.Fragment>
-        <GlobalStyles
-          styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
-        />
-        <CssBaseline />
-        <AppBar position="static" sx={{ mb: 1 }}>
-          <Toolbar sx={{ backgroundColor: "#1976d2", color: "#fff" }}>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              SidratSoft
-            </Typography>
-            <LinkPage
-              to="/login"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              <Button color="inherit">Login</Button>
-            </LinkPage>
-          </Toolbar>
-        </AppBar>
-        {/* Hero unit */}
-        <Container
-          disableGutters
-          maxWidth="sm"
-          component="main"
-          sx={{ pt: 8, pb: 6 }}
-        >
-          <Typography
-            component="h1"
-            variant="h2"
-            align="center"
-            color="text.primary"
-            gutterBottom
-          >
-            Pricing
+    <ThemeProvider theme={theme}>
+      <AppBar position="static" sx={{ mb: 1 }}>
+        <Toolbar sx={{ backgroundColor: "#1976d2", color: "#fff" }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            SidratSoft
           </Typography>
-          <Typography
-            variant="h5"
-            align="center"
-            color="text.secondary"
-            component="p"
-          ></Typography>
-        </Container>
-        {/* End hero unit */}
-        <Container maxWidth="md" component="main" sx={{ mb: 10 }}>
-          <Grid container spacing={5} alignItems="flex-end">
-            {tiers.map((tier) => (
-              // Enterprise card is full width at sm breakpoint
-              <Grid
-                item
-                key={tier.title}
-                xs={12}
-                sm={tier.title === "Enterprise" ? 12 : 6}
-                md={4}
-              >
-                <Card>
-                  <CardHeader
-                    title={tier.title}
-                    subheader={tier.subheader}
-                    titleTypographyProps={{ align: "center" }}
-                    action={tier.title === "Pro" ? <StarIcon /> : null}
-                    subheaderTypographyProps={{
-                      align: "center",
-                    }}
-                    sx={{
-                      backgroundColor: (theme) =>
-                        theme.palette.mode === "light"
-                          ? theme.palette.grey[200]
-                          : theme.palette.grey[700],
-                    }}
-                  />
-                  <CardContent>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "baseline",
-                        mb: 2,
-                      }}
-                    >
-                      <Typography
-                        component="h2"
-                        variant="h3"
-                        color="text.primary"
-                      >
-                        Dt{tier.price}
-                      </Typography>
-                      <Typography variant="h6" color="text.secondary">
-                        /mo
-                      </Typography>
-                    </Box>
-                    <ul>
-                      {tier.description.map((line) => (
-                        <Typography
-                          component="li"
-                          variant="subtitle1"
-                          align="center"
-                          key={line}
-                        >
-                          {line}
-                        </Typography>
-                      ))}
-                    </ul>
-                  </CardContent>
-                  <CardActions>
-                    <Button
-                      fullWidth
-                      variant={tier.buttonVariant as "outlined" | "contained"}
-                      href="/signup/form"
-                    >
-                      {tier.buttonText}
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-        {/* Footer */}
+        </Toolbar>
+      </AppBar>
 
-        {/* End footer */}
-      </React.Fragment>
-    </div>
+      <StepWizard onStepChange={onStepChange} isHashEnabled={true}>
+        <SignupClient
+          Item={Item}
+          handleForm={handleClientInfo}
+          hashKey={"client"}
+        />
+        <SignupOrganization
+          Item={Item}
+          handleForm={handleOrganizationInfo}
+          hashKey={"organization"}
+        />
+        <SignupPackage
+          pack={pack}
+          handleChangePack={handleChangePack}
+          delay={delay}
+          handleChangeDelay={handleChangeDelay}
+          hashKey={"package"}
+        />
+      </StepWizard>
+    </ThemeProvider>
   );
 };
 
-export default signup;
+export default Signup;

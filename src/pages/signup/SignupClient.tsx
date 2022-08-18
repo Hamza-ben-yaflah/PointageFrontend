@@ -1,22 +1,39 @@
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button/Button";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import FormControl from "@mui/material/FormControl";
 import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import React, { useState } from "react";
-import MenuItem from "@mui/material/MenuItem";
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
+import { useState } from "react";
+import { StepWizardChildProps } from "react-step-wizard";
+import ImageUpload from "../../components/imageUpload/ImageUpload";
 
-const SignupClient = ({ Item }: any) => {
-  const [fileClient, setFileClient] = useState<any>();
+interface ISignupClient extends Partial<StepWizardChildProps> {
+  Item: any;
+  handleForm: (event: any) => void;
+}
+
+const SignupClient = ({
+  Item,
+  handleForm,
+  nextStep,
+  previousStep,
+}: ISignupClient) => {
   const [sex, setSexge] = useState("");
   const handleChange = (event: SelectChangeEvent) => {
     setSexge(event.target.value);
   };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    handleForm(event);
+    nextStep!();
+  };
+
   return (
     <>
       <Item>
@@ -33,44 +50,11 @@ const SignupClient = ({ Item }: any) => {
               alignItems: "center",
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <div className="cellWithImg">
-                <img
-                  className="cellImg"
-                  src={
-                    fileClient
-                      ? URL.createObjectURL(fileClient)
-                      : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                  }
-                  alt=""
-                />
-              </div>
-              <div className="formInput">
-                <label htmlFor="file">
-                  <DriveFolderUploadOutlinedIcon className="icon" />
-                </label>
-                <input
-                  type="file"
-                  id="file"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    e.target?.files && setFileClient(e.target.files[0]);
-
-                    console.log(fileClient);
-                  }}
-                  style={{ display: "none" }}
-                />
-              </div>
-            </Box>
+            <ImageUpload />
             <Box
               component="form"
               noValidate
-              // onSubmit={handleSubmit}
+              onSubmit={handleSubmit}
               sx={{ mt: 3 }}
             >
               <Grid container spacing={2}>
@@ -134,7 +118,7 @@ const SignupClient = ({ Item }: any) => {
                     autoComplete="phoneNumber"
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item sm={24}>
                   <FormControl
                     sx={{
                       m: 1,
@@ -155,6 +139,24 @@ const SignupClient = ({ Item }: any) => {
                       <MenuItem value={"Woman"}>Woman</MenuItem>
                     </Select>
                   </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Button
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                    onClick={() => previousStep!()}
+                  >
+                    Previous
+                  </Button>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Next
+                  </Button>
                 </Grid>
               </Grid>
             </Box>
