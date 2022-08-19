@@ -5,35 +5,36 @@ import CssBaseline from "@mui/material/CssBaseline";
 import FormControl from "@mui/material/FormControl";
 import Grid from "@mui/material/Grid/Grid";
 import InputLabel from "@mui/material/InputLabel";
-import ListSubheader from "@mui/material/ListSubheader";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { StepWizardChildProps } from "react-step-wizard";
+import { IPackage } from "./Signup";
 
 interface ISubscription extends Partial<StepWizardChildProps> {
   Item: any;
   handleForm: (event: any) => void;
-  packs: any[];
+  packages: IPackage[];
 }
 
 const PackageForm = ({
   Item,
   handleForm,
   previousStep,
-  packs,
+  packages,
 }: ISubscription) => {
-  const [pack, setPack] = useState<string>();
+  const [packageId, setPackageId] = useState<string>();
   const [duration, setDuration] = useState<string>();
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const price = 200;
-    handleForm({ pack, duration, price });
+    handleForm({ packageId, duration, price });
   };
 
   const handleChangePack = (event: SelectChangeEvent) => {
-    setPack(event.target.value as string);
+    setPackageId(event.target.value as string);
   };
 
   const handleChangeDuration = (event: SelectChangeEvent) => {
@@ -65,7 +66,9 @@ const PackageForm = ({
               <Grid container spacing={2}>
                 <Grid item xs={24}>
                   <FormControl fullWidth>
-                    <InputLabel htmlFor="grouped-select">Package</InputLabel>
+                    <InputLabel htmlFor="grouped-select">
+                      Number of Employees
+                    </InputLabel>
                     <Select
                       defaultValue=""
                       id="grouped-select"
@@ -73,15 +76,10 @@ const PackageForm = ({
                       name="pack"
                       onChange={handleChangePack}
                     >
-                      <ListSubheader>{50}</ListSubheader>
-                      <MenuItem value={50}>60</MenuItem>
-                      {packs.map((pack) => (
-                        <div>
-                          <ListSubheader>{pack.name}</ListSubheader>
-                          <MenuItem value={pack.id}>
-                            {pack.users_number}
-                          </MenuItem>
-                        </div>
+                      {packages.map(({ id, usersNumber }: IPackage) => (
+                        <MenuItem key={id} value={id}>
+                          {usersNumber}
+                        </MenuItem>
                       ))}
                     </Select>
                   </FormControl>
@@ -96,9 +94,9 @@ const PackageForm = ({
                       name="duration"
                       onChange={handleChangeDuration}
                     >
-                      <MenuItem value="month">month</MenuItem>
-                      <MenuItem value="3 month">3 months</MenuItem>
-                      <MenuItem value="year">Year</MenuItem>
+                      <MenuItem value={30}>month</MenuItem>
+                      <MenuItem value={90}>3 months</MenuItem>
+                      <MenuItem value={365}>Year</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>

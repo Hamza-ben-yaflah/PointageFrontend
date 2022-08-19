@@ -15,9 +15,7 @@ import ImageUpload from "../../components/imageUpload/ImageUpload";
 
 interface ISignupClient extends Partial<StepWizardChildProps> {
   Item: any;
-  handleForm: (
-    event: React.FormEvent<HTMLFormElement> & { sex: string }
-  ) => void;
+  handleForm: (event: React.FormEvent<HTMLFormElement>, sex: string) => void;
 }
 
 const ClientForm = ({
@@ -32,8 +30,11 @@ const ClientForm = ({
     setSex(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    handleForm({ ...event, sex });
+  const handleSubmit = (
+    event: React.FormEvent<HTMLFormElement>,
+    sex: string
+  ) => {
+    handleForm(event, sex);
     nextStep!();
   };
 
@@ -57,7 +58,9 @@ const ClientForm = ({
             <Box
               component="form"
               noValidate
-              onSubmit={handleSubmit}
+              onSubmit={(event: React.FormEvent<HTMLFormElement>) =>
+                handleSubmit(event, sex)
+              }
               sx={{ mt: 3 }}
             >
               <Grid container spacing={2}>
@@ -116,7 +119,7 @@ const ClientForm = ({
                   <TextField
                     required
                     fullWidth
-                    name="phonenumber"
+                    name="phoneNumber"
                     label="PhoneNumber"
                     autoComplete="phoneNumber"
                   />
